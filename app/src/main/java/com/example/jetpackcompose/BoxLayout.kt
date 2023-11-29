@@ -19,10 +19,10 @@ fun BoxLayout() {
     Box(
         modifier = Modifier
             .size(200.dp)
-            .background(Color.LightGray)
+            .background(Color.LightGray),
     ) {
         Text(
-            text = "Hello", modifier = Modifier.align(Alignment.Center)
+            text = "Hello", modifier = Modifier.align(Alignment.TopStart)
         )
         Text(
             text = "World", modifier = Modifier
