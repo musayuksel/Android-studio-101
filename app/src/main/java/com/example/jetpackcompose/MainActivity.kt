@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    ImageGallery()
-                    BirthdayCard("Happy Birthday Mete!", "From Musa")
+                    HappyBirthdayCard("Happy Birthday Mete!", "From Musa")
                 }
             }
         }
