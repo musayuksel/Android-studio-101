@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,11 +22,14 @@ fun BirthdayCard(message: String, from: String, modifier: Modifier = Modifier) {
             text = message,
             fontSize = 100.sp,
             lineHeight = 120.sp,
-            modifier = modifier,
+            textAlign =TextAlign.Center,
+            modifier = modifier.align(alignment = Alignment.CenterHorizontally)
         )
-        Text(text = from, fontSize = 40.sp, modifier = modifier
-            .padding(8.dp)
-            .align(alignment = Alignment.End))
+        Text(
+            text = from, fontSize = 40.sp, modifier = modifier
+                .padding(8.dp)
+                .align(alignment = Alignment.End)
+        )
     }
 
 }

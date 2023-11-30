@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
 
@@ -22,7 +23,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    ImageGallery()
-                    HappyBirthdayCard("Happy Birthday Mete!", "From Musa")
+                    HappyBirthdayCard(
+//                        we can use stringResource() to get the string from the strings.xml file
+                        stringResource(R.string.ex_happy_birthday_message), stringResource(
+                            R.string.ex_from_message
+                        )
+                    )
                 }
             }
         }
