@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -41,57 +42,44 @@ val task4 = Task(
 
 
 @Composable
-fun TextCard(header: String, body: String, colorCode: Color, modifier: Modifier = Modifier) {
+fun TextCard(task: Task, modifier: Modifier = Modifier) {
     Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .background(colorCode)
+            .fillMaxSize()
+            .background(task.colorCode)
             .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = header,
-            modifier = modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.Bold
+            text = task.header, fontWeight = FontWeight.Bold
         )
-        Text(text = body, modifier = modifier, textAlign = TextAlign.Justify)
+        Text(
+            text = task.body,
+            textAlign = TextAlign.Justify,
+        )
     }
 }
 
 @Composable
 fun TaskGrid() {
-    val items = listOf(
-        task1, task2, task3, task4
-    )
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(modifier = Modifier.weight(1f)) {
             TextCard(
-                items[0].header,
-                items[0].body,
-                items[0].colorCode,
-                modifier = Modifier.weight(1f)
+                task1, modifier = Modifier.weight(1f)
             )
             TextCard(
-                items[1].header,
-                items[1].body,
-                items[1].colorCode,
-                modifier = Modifier.weight(1f)
+                task2, modifier = Modifier.weight(1f)
             )
         }
         Row(modifier = Modifier.weight(1f)) {
             TextCard(
-                items[2].header,
-                items[2].body,
-                items[2].colorCode,
-                modifier = Modifier.weight(1f)
+                task3, modifier = Modifier.weight(1f)
             )
             TextCard(
-                items[3].header,
-                items[3].body,
-                items[3].colorCode,
-                modifier = Modifier.weight(1f)
+                task4, modifier = Modifier.weight(1f)
             )
         }
     }
