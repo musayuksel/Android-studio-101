@@ -1,0 +1,104 @@
+package com.example.jetpackcompose
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+
+class Task(val header: String, val body: String, val colorCode: Color)
+
+val task1 = Task(
+    "Text composable",
+    "Displays text and follows the recommended Material Design guidelines.",
+    Color(0xFFEADDFF)
+)
+val task2 = Task(
+    "Image composable",
+    "Creates a composable that lays out and draws a given Painter class object.",
+    Color(0xFFD0BCFF)
+)
+val task3 = Task(
+    "Row composable",
+    "A layout composable that places its children in a horizontal sequence.",
+    Color(0xFFB69DF8)
+)
+val task4 = Task(
+    "Column composable",
+    "A layout composable that places its children in a vertical sequence.",
+    Color(0xFFF6EDFF)
+)
+
+
+@Composable
+fun TextCard(header: String, body: String, colorCode: Color, modifier: Modifier = Modifier) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .background(colorCode)
+            .padding(16.dp),
+    ) {
+        Text(
+            text = header,
+            modifier = modifier.padding(bottom = 16.dp),
+            fontWeight = FontWeight.Bold
+        )
+        Text(text = body, modifier = modifier, textAlign = TextAlign.Justify)
+    }
+}
+
+@Composable
+fun TaskGrid() {
+    val items = listOf(
+        task1, task2, task3, task4
+    )
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(modifier = Modifier.weight(1f)) {
+            TextCard(
+                items[0].header,
+                items[0].body,
+                items[0].colorCode,
+                modifier = Modifier.weight(1f)
+            )
+            TextCard(
+                items[1].header,
+                items[1].body,
+                items[1].colorCode,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row(modifier = Modifier.weight(1f)) {
+            TextCard(
+                items[2].header,
+                items[2].body,
+                items[2].colorCode,
+                modifier = Modifier.weight(1f)
+            )
+            TextCard(
+                items[3].header,
+                items[3].body,
+                items[3].colorCode,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TaskGridPreview() {
+    TaskGrid()
+}
