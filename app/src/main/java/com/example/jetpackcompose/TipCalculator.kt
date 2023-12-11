@@ -3,6 +3,7 @@ package com.example.jetpackcompose
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -100,7 +101,8 @@ fun TipCalculator() {
     }
 }
 
-private fun calculateTip(amount: Double, tipPercent: Double = 15.0, isRoundUp: Boolean): String {
+@VisibleForTesting
+internal fun calculateTip(amount: Double, tipPercent: Double = 15.0, isRoundUp: Boolean): String {
     var tip = tipPercent / 100 * amount
     if (isRoundUp) tip = kotlin.math.round(tip)
     return NumberFormat.getCurrencyInstance().format(tip)
