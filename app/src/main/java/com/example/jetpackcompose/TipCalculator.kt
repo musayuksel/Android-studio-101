@@ -33,9 +33,12 @@ import java.text.NumberFormat
 @Composable
 fun TipCalculator() {
     var amountInput by remember { mutableStateOf("") }
+    var tipPercent by remember { mutableStateOf("") }
 
     val enteredAmount = amountInput.toDoubleOrNull() ?: 0.0
-    val tipAmount = calculateTip(enteredAmount)
+    val enteredTipPercent = tipPercent.toDoubleOrNull() ?: 0.0
+
+    val tipAmount = calculateTip(enteredAmount, enteredTipPercent)
 
     Column(
         modifier = Modifier
@@ -60,6 +63,14 @@ fun TipCalculator() {
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
+        EditNumberField(
+            label = R.string.how_was_the_service,
+            amountInput = tipPercent,
+            onValueChange = { tipPercent = it },
+            modifier = Modifier
+                .padding(bottom = 32.dp)
+                .fillMaxWidth()
+        )
 
         Text(
             text = stringResource(R.string.tip_amount, tipAmount),
@@ -78,7 +89,8 @@ private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditNumberField(
-    amountInput: String, onValueChange: (String) -> Unit,
+    amountInput: String,
+    onValueChange: (String) -> Unit,
     @StringRes label: Int,
     modifier: Modifier = Modifier
 ) {
