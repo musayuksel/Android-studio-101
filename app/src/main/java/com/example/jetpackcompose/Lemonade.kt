@@ -44,9 +44,20 @@ fun Lemonade(
         )
     }
     var currentImageIndex by remember { mutableStateOf(0) }
+    var squeezeCount by remember { mutableStateOf((2..4).random()) }
 
     val handleImageClick = {
-        currentImageIndex = (currentImageIndex + 1) % images.size
+        when {
+            currentImageIndex == 2 && squeezeCount > 0 -> {
+                squeezeCount--
+            }
+
+            else -> currentImageIndex = (currentImageIndex + 1) % images.size
+        }
+
+        if (currentImageIndex == 3) {
+            squeezeCount = (2..4).random()
+        }
     }
 
     Column(
