@@ -1,6 +1,7 @@
 package com.example.jetpackcompose
 
 import android.annotation.SuppressLint
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -54,6 +55,7 @@ fun TipCalculator() {
         EditNumberField(
             amountInput = amountInput,
             onValueChange = { amountInput = it },
+            label = R.string.bill_amount,
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
@@ -76,13 +78,15 @@ private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditNumberField(
-    amountInput: String, onValueChange: (String) -> Unit, modifier: Modifier = Modifier
+    amountInput: String, onValueChange: (String) -> Unit,
+    @StringRes label: Int,
+    modifier: Modifier = Modifier
 ) {
 
     TextField(
         value = amountInput,
         onValueChange = onValueChange,
-        label = { Text(stringResource(R.string.bill_amount)) },
+        label = { Text(stringResource(label)) },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         modifier = modifier
