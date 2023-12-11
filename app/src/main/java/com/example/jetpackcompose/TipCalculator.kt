@@ -31,6 +31,11 @@ import java.text.NumberFormat
 
 @Composable
 fun TipCalculator() {
+    var amountInput by remember { mutableStateOf("") }
+
+    val enteredAmount = amountInput.toDoubleOrNull() ?: 0.0
+    val tipAmount = calculateTip(enteredAmount)
+
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -47,13 +52,15 @@ fun TipCalculator() {
                 .align(alignment = Alignment.Start)
         )
         EditNumberField(
+            amountInput = amountInput,
+            onValueChange = { amountInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
 
         Text(
-            text = stringResource(R.string.tip_amount, "$0.00"),
+            text = stringResource(R.string.tip_amount, tipAmount),
             style = MaterialTheme.typography.displaySmall,
         )
         Spacer(modifier = Modifier.height(150.dp))
@@ -68,15 +75,13 @@ private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditNumberField(modifier: Modifier = Modifier) {
-    var amountInput by remember { mutableStateOf("") }
-
-    val enteredAmount = amountInput.toDoubleOrNull() ?: 0.0
-    val tipAmount = calculateTip(enteredAmount)
+fun EditNumberField(
+    amountInput: String, onValueChange: (String) -> Unit, modifier: Modifier = Modifier
+) {
 
     TextField(
         value = amountInput,
-        onValueChange = { amountInput = it },
+        onValueChange = onValueChange,
         label = { Text(stringResource(R.string.bill_amount)) },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
