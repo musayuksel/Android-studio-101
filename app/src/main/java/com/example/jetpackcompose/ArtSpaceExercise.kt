@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,22 +50,49 @@ val exampleImages = listOf(
     ),
 )
 
+
 @Composable
 fun ArtSpaceExercise(modifier: Modifier = Modifier) {
+
+    var currentImageIndex by remember { mutableIntStateOf(0) }
+
+    fun handleNextImageClick(imagesLength: Int) {
+        if (currentImageIndex < imagesLength-1) {
+            currentImageIndex++
+        }
+    }
+
+    fun handlePreviousImageClick() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--
+        }
+    }
+
+
+
     Column {
 //        image
         ArtImage(
-            imageResource = exampleImages[0].imageResource,
-            description = exampleImages[0].description,
+            imageResource = exampleImages[currentImageIndex].imageResource,
+            description = exampleImages[currentImageIndex].description,
             modifier = modifier
         )
         ArtExplanation(
-            title = exampleImages[0].title,
-            artist = exampleImages[0].artist,
-            year = exampleImages[0].year,
+            title = exampleImages[currentImageIndex].title,
+            artist = exampleImages[currentImageIndex].artist,
+            year = exampleImages[currentImageIndex].year,
             modifier = modifier
         )
-        NavigationImages(modifier = modifier)
+
+        NavigationImages(
+            handleNextClick = {
+                handleNextImageClick(exampleImages.size)
+            },
+            handlePreviousClick = {
+                handlePreviousImageClick()
+            },
+            modifier = modifier
+        )
     }
 }
 
@@ -92,17 +123,24 @@ fun ArtExplanation(
 
 @Composable
 fun NavigationImages(
+    handleNextClick: () -> Unit,
+    handlePreviousClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            handlePreviousClick()
+        }) {
             Text(text = "Previous")
         }
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            handleNextClick()
+        }) {
             Text(text = "Next")
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
