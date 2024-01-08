@@ -13,7 +13,20 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.view.WindowCompat
+import com.example.jetpackcompose.R
+
+val AbrilFatface = FontFamily(
+    Font(R.font.abril_fatface_regular)
+)
+
+val Montserrat = FontFamily(
+    Font(R.font.montserrat_regular),
+    Font(R.font.montserrat_bold, FontWeight.Bold)
+)
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
