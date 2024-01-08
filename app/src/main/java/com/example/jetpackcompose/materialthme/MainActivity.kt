@@ -85,7 +85,8 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier) {
+    Card(modifier = modifier.clip(MaterialTheme.shapes.medium),) {
+//         by default, it uses the medium shape, we don't need to explicitly set it
         Row(
             modifier = modifier
                 .fillMaxWidth()
