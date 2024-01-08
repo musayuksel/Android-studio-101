@@ -30,17 +30,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose.R
 import com.example.woof.data.Dog
 import com.example.woof.data.dogs
@@ -65,13 +71,42 @@ class MainActivity : ComponentActivity() {
 /**
  * Composable that displays an app bar and a list of dogs.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WoofApp() {
-    LazyColumn {
-        items(dogs) {
-            DogItem(dog = it, modifier = Modifier.padding(8.dp))
+//    A Scaffold is a layout that provides slots for various components and screen elements, such as an Image, Row, or Column.
+    Scaffold(
+        topBar = { WoofTopAppBar() }
+    ) { it ->
+        LazyColumn(contentPadding = it) {
+            items(dogs) {
+                DogItem(dog = it, modifier = Modifier.padding(8.dp))
+            }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WoofTopAppBar(modifier: Modifier = Modifier) {
+    CenterAlignedTopAppBar(title = {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = Modifier
+                    .size(64.dp)
+                    .padding(8.dp),
+                painter = painterResource(R.drawable.ic_woof_logo),
+                contentDescription = null
+            )
+
+            Text(
+                text = "Woof",
+                style = MaterialTheme.typography.displayLarge
+            )
+        }
+    }, modifier = modifier)
 }
 
 /**
@@ -85,7 +120,7 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier.clip(MaterialTheme.shapes.medium),) {
+    Card(modifier = modifier.clip(MaterialTheme.shapes.medium)) {
 //         by default, it uses the medium shape, we don't need to explicitly set it
         Row(
             modifier = modifier
