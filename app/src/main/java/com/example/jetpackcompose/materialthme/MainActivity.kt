@@ -130,15 +130,26 @@ fun DogItem(
     var expanded by remember { mutableStateOf(false) }
     Card(modifier = modifier.clip(MaterialTheme.shapes.medium)) {
 //         by default, it uses the medium shape, we don't need to explicitly set it
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            DogIcon(dog.imageResourceId)
-            DogInformation(dog.name, dog.age)
-            Spacer(modifier = Modifier.weight(1f))
-            DogItemButton(isExpanded = expanded, onClick = { /*TODO*/ })
+        Column {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                DogIcon(dog.imageResourceId)
+                DogInformation(dog.name, dog.age)
+                Spacer(modifier = Modifier.weight(1f))
+                DogItemButton(isExpanded = expanded, onClick = { /*TODO*/ })
+            }
+            DogHobby(
+                dogHobby = dog.hobbies,
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    top = 8.dp,
+                    end = 16.dp,
+                    bottom = 16.dp
+                )
+            )
         }
     }
 }
@@ -195,6 +206,7 @@ fun DogInformation(
         )
     }
 }
+
 @Composable
 private fun DogItemButton(
     isExpanded: Boolean,
@@ -214,6 +226,25 @@ private fun DogItemButton(
     }
 
 
+}
+
+@Composable
+fun DogHobby(
+    @StringRes dogHobby: Int,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(R.string.about),
+            style = MaterialTheme.typography.labelSmall
+        )
+        Text(
+            text = stringResource(dogHobby),
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
 }
 
 @Preview
