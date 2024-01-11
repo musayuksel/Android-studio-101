@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -84,8 +85,8 @@ fun WoofApp() {
 //    A Scaffold is a layout that provides slots for various components and screen elements, such as an Image, Row, or Column.
     Scaffold(
         topBar = { WoofTopAppBar() }
-    ) { it ->
-        LazyColumn(contentPadding = it) {
+    ) { padding ->
+        LazyColumn(contentPadding = padding) {
             items(dogs) {
                 DogItem(dog = it, modifier = Modifier.padding(8.dp))
             }
@@ -139,17 +140,21 @@ fun DogItem(
                 DogIcon(dog.imageResourceId)
                 DogInformation(dog.name, dog.age)
                 Spacer(modifier = Modifier.weight(1f))
-                DogItemButton(isExpanded = expanded, onClick = { /*TODO*/ })
+                DogItemButton(isExpanded = expanded,
+                    onClick = { expanded = !expanded })
             }
-            DogHobby(
-                dogHobby = dog.hobbies,
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    top = 8.dp,
-                    end = 16.dp,
-                    bottom = 16.dp
+
+            if (expanded) {
+                DogHobby(
+                    dogHobby = dog.hobbies,
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        top = 8.dp,
+                        end = 16.dp,
+                        bottom = 16.dp
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -218,7 +223,7 @@ private fun DogItemButton(
         modifier = modifier
     ) {
         Icon(
-            imageVector = Icons.Filled.ExpandMore,
+            imageVector = if (isExpanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary
         )
